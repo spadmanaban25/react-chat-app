@@ -5,9 +5,175 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color:royalblue;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+#forgotPass, #Register {
+	padding: 20px;
+}
+
+.loader {
+	position:fixed;
+	left: 50%;
+	top: 10%;
+	border: 10px solid #f3f3f3; /* Light grey */
+	border-top: 10px solid #FFCD00; /* yellow */
+	border-radius: 50%;
+	width: 50px;
+	height: 50px;
+	animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
+
+.messageBox {
+	width: 920px;
+    height: 575px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding-left: 10px;
+	border-radius: 10px;
+	top: 100px;
+	left: 450px;
+	position:fixed;
+    overflow-y: auto;
+	flex: 1;
+}
+
+#messageInput {
+	position:fixed;
+	top:670px;
+	left:550px;
+	width:680px;
+	padding-right: 10px;
+}
+#sendBtn {
+	position:fixed;
+	top:691px;
+	left: 1215px;
+	height:30px;
+	width:50px;
+}
+#message {
+	border:1px solid royalblue;
+	border-radius: 20px;
+	width:350px;
+	margin: 8px;
+	padding:8px;
+	white-space: "pre-wrap";
+}
+#ownmessage {
+	border:1px solid #FFCD00;
+	border-radius: 20px;
+	width:350px;
+	margin-left:520px;
+	padding: 8px;
+	white-space: "pre-wrap";
+	background-color: #5288e3;
+}
+
+#logout {
+	position:fixed;
+	left: 90%;
+	top: 3%;
+	background-color: #FFCD00;
+	color:#5288e3;
+	font-weight: bold;
+	font-size: 16px;
+	padding: 10px 15px;
+}
+
+#WelcomeMessage {
+	color:#FFCD00;
+}
+/* borrowed from online css bootstrap template and modified it*/
+.main-content{
+	width: 50%;
+	border-radius: 20px;
+	box-shadow: 0 5px 5px rgba(0,0,0,.4);
+	margin: 5em auto;
+	display: flex;
+}
+.company__info{
+	background-color: royalblue;
+	border-top-left-radius: 20px;
+	border-bottom-left-radius: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	color: #FFCD00;
+  text-align:center;
+  width: 40%;
+}
+.fa-android{
+	font-size:3em;
+}
+@media screen and (max-width: 640px) {
+	.main-content{width: 90%;}
+	.company__info{
+		display: none;
+	}
+	.login_form{
+		border-top-left-radius:20px;
+		border-bottom-left-radius:20px;
+	}
+}
+@media screen and (min-width: 642px) and (max-width:800px){
+	.main-content{width: 70%;}
+}
+.row > h2{
+	color:#FFCD00;
+  text-align: center;
+}
+.login_form{
+	background-color: #fff;
+	border-top-right-radius:20px;
+	border-bottom-right-radius:20px;
+	border-top:1px solid #ccc;
+	border-right:1px solid #ccc;
+  width:80%;
+}
+form{
+	padding: 0 3em;
+}
+.form__input{
+	width: 100%;
+	border:0px solid transparent;
+	border-radius: 0;
+	border-bottom: 1px solid #aaa;
+	padding: 1em .5em .5em;
+	padding-left: 2em;
+	outline:none;
+	margin:1.5em auto;
+	transition: all .5s ease;
+}
+.form__input:focus{
+	border-bottom-color: royalblue;
+	box-shadow: 0 0 5px royalblue; 
+	border-radius: 4px;
+}
+.btn{
+	transition: all .5s ease;
+	width: 50%;
+	border-radius: 30px;
+	color:royalblue;
+	font-weight: 600;
+	background-color: #fff;
+	border: 1px solid royalblue;
+	margin-top: 1.5em;
+	margin-bottom: 1em;
+}
+.btn:hover, .btn:focus{
+	background-color: #FFCD00;
+	color:#fff;
+}
+
+
