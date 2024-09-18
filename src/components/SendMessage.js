@@ -11,12 +11,16 @@ const SendMessage = () => {
         setMessage(value);
     }
     useEffect(() => {
-        Username.getAll().on("child_added", (snapshot) => {
-            const data = snapshot.val();
-            if (data.email === localStorage.getItem("email")) {
-                setUsername(data.username);
-            }
-        })
+        if (localStorage.getItem("guestAccess") == 'true') {
+            setUsername('guest');
+        } else {
+            Username.getAll().on("child_added", (snapshot) => {
+                const data = snapshot.val();
+                if (data.email === localStorage.getItem("email")) {
+                    setUsername(data.username);
+                }
+            })
+        }
     }, [username]);
 
     const storeMessage = async (e) => {

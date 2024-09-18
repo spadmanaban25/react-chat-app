@@ -5,12 +5,16 @@ import Username from "../services/Username";
 function FormatMessage({ name, message, time }) {
     const [username, setUsername] = useState("");
     useEffect(() => {
-        Username.getAll().on("child_added", (snapshot) => {
-            const data = snapshot.val();
-            if (data.email === localStorage.getItem("email")) {
-                setUsername(data.username);
-            }
-        })
+        if (localStorage.getItem("guestAccess") == 'true') {
+            setUsername('guest');
+        } else {
+            Username.getAll().on("child_added", (snapshot) => {
+                const data = snapshot.val();
+                if (data.email === localStorage.getItem("email")) {
+                    setUsername(data.username);
+                }
+            })
+        }
     }, [username]);
     //If the user is sending a message
     // Then the user's message would be blue

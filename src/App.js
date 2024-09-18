@@ -30,6 +30,7 @@ class App extends React.Component {
     if (flag) {
       localStorage.setItem("email", null);
     }
+    localStorage.setItem("guestAccess", false);
   };
   render() {
     return (

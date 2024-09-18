@@ -26,6 +26,13 @@ function Login({ loginF }) {
             });
         }
     }, []);
+    const handleClick = (event) => {
+        if (event.target.id == 'guest') {
+            localStorage.setItem("guestAccess", true);
+        } else {
+            localStorage.setItem("guestAccess", false);
+        }
+    }
     const handleChange = (event) => {
         //Changes state of email, password, and checkbox based on user input
         const name = event.target.name;
@@ -33,37 +40,45 @@ function Login({ loginF }) {
 
         setInputs(values => ({ ...values, [name]: value }));
     }
+    
     const login = (e) => {
         e.preventDefault();
-        //signs in with current user data via firebase
-        signInWithEmailAndPassword(auth, inputs.email, inputs.password)
-            .then((userCredential) => {
-                loginF();
-                //storing email, password, and checkbox state for remembering account
-                localStorage.setItem("email", inputs.email);
-                localStorage.setItem("isChecked", inputs.checked);
-                if (inputs.checked) {
-                    localStorage.setItem("password", inputs.password);
-                }
-                navigate("/User");
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMess = error.message;
-                if (errorCode == 'auth/invalid-email' || errorCode == 'auth/invalid-credential') {
-                    alert("Incorrect Username or Password");
-                    setInputs({
-                        email: "",
-                        password: "",
-                        checked: false,
-                    })
-                } else if (errorCode == 'auth/user-not-found') {
-                    alert("User not found");
-                } else if (errorCode == 'auth/too-many-requests') {
-                    alert("You have made too many incorrect login requests. Your account has been temporarily disabled. Please reset your password, or try again later.");
-                }
-                console.log(error);
-            });
+        if (localStorage.getItem("guestAccess") == 'true') {
+            loginF();
+            navigate("/User");
+            return;
+        } else {
+            //signs in with current user data via firebase
+            signInWithEmailAndPassword(auth, inputs.email, inputs.password)
+                .then((userCredential) => {
+                    loginF();
+                    //storing email, password, and checkbox state for remembering account
+                    localStorage.setItem("email", inputs.email);
+                    localStorage.setItem("isChecked", inputs.checked);
+                    if (inputs.checked) {
+                        localStorage.setItem("password", inputs.password);
+                    }
+                    navigate("/User");
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMess = error.message;
+                    if (errorCode == 'auth/invalid-email' || errorCode == 'auth/invalid-credential') {
+                        alert("Incorrect Username or Password");
+                        setInputs({
+                            email: "",
+                            password: "",
+                            checked: false,
+                        })
+                    } else if (errorCode == 'auth/user-not-found') {
+                        alert("User not found");
+                    } else if (errorCode == 'auth/too-many-requests') {
+                        alert("You have made too many incorrect login requests. Your account has been temporarily disabled. Please reset your password, or try again later.");
+                    }
+                    console.log(error);
+                });
+        }
+
     }
     return (
         <div class="container-fluid">
@@ -91,8 +106,11 @@ function Login({ loginF }) {
                                     <label for="remember_me">Remember Me!</label>
                                 </div>
                                 <div class="row">
-                                    <input type="submit" value="Submit" class="btn" />
+                                    <input id="submit" type="submit" value="Submit" class="btn" onClick={handleClick} />
                                     <NavLink id="forgotPass" to="ForgotPassword">Forgot Password</NavLink>
+                                </div>
+                                <div class="row">
+                                    <input id="guest" type="submit" value="Continue As Guest" class="btn" onClick={handleClick} />
                                 </div>
                             </form>
                         </div>

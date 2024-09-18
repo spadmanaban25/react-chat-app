@@ -12,12 +12,17 @@ function User({ logout }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                Username.getAll().on("child_added", (snapshot) => {
-                    const data = snapshot.val();
-                    if (data.email === localStorage.getItem("email")) {
-                        setUsername(data.username);
-                    }
-                })
+                if (localStorage.getItem("guestAccess") == 'true') {
+                    setUsername('guest');
+                } else {
+                    Username.getAll().on("child_added", (snapshot) => {
+                        const data = snapshot.val();
+                        if (data.email === localStorage.getItem("email")) {
+                            setUsername(data.username);
+                        }
+                    })
+                }
+
                 //If 'Remember Me' checkbox wasn't checked, clear password from localStorage
                 //Ensures that fields in login will be cleared
                 let flag = localStorage.getItem("isChecked") === "false";
